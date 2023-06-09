@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>BMI Calculator</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    .container {
+      width: 300px;
+      margin: 0 auto;
+    }
+
+    label {
+      display: block;
+      margin-top: 10px;
+    }
+
+    input[type="number"] {
+      width: 100%;
+      padding: 5px;
+      box-sizing: border-box;
+    }
+
+    #result {
+      text-align: center;
+      margin-top: 20px;
+      font-weight: bold;
+    }
+
+    .bad {
+      color: red;
+    }
+
+    .average {
+      color: orange;
+    }
+
+    .obese {
+      color: darkred;
+    }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.1/socket.io.js"></script>
+  <script>
+      const socket = new WebSocket("ws://localhost:8000/ws");
+
+socket.addEventListener("open", () => {
+console.log("WebSocket connected");
+});
+
+socket.addEventListener("message", event => {
+const message = event.data;
+// console.log("Received message: ", message);
+if (message == "reload"){
+        location.reload();
+        console.log("Received message: ", message);
+    }
+});
+  </script>
+</head>
+<body style="background-color: white;">
+  <input type="checkbox" id="myCheckbox">Enable Security</input>
+  <h1>BMI Calculator</h1>
+  <div class="container">
+    <label>Weight (kg):</label>
+    <input type="number" value={{weight}} id="weightInput">
+
+    <label>Height (cm):</label>
+    <input type="number" value={{height}} id="heightInput">
+
+    <div id="result"></div>
+    
+  </div>
+
+  <script>
+    function handleCheckboxClick() {
+            $.ajax({
+                    url: '/checkbox',
+                    type: 'GET',
+                    success: function(response) {
+                        console.log('API call successful');
+                        // Handle the API response here
+                    },
+                    error: function(error) {
+                        console.error('API call failed');
+                        // Handle the API error here
+                    }
+                });
+          }
+        
+        $(document).ready(function() {
+          console.log('function called1');
+            $('#myCheckbox').click(handleCheckboxClick);
+        });
+  </script>
+  <script>
+    function calculateBMI() {
+      var weight = document.getElementById("weightInput").value;
+      var height = document.getElementById("heightInput").value / 100; // Convert cm to meters
+      var bmi = weight / (height * height);
+      var resultElement = document.getElementById("result");
+
+      resultElement.innerHTML = "BMI Score: " + bmi.toFixed(2);
+
+      if (bmi < 18.5) {
+        resultElement.className = "bad";
+        resultElement.innerHTML += "<br>Body Type: Underweight<br>";
+        resultElement.innerHTML += " <img src='https://toonclips.com/600/cartoon-skinny-guy-trying-to-flex-by-toonaday-2297.jpg' width='128' height='168'>";
+      } else if (bmi >= 18.5 && bmi < 25) {
+        resultElement.className = "average";
+        resultElement.innerHTML += "<br>Body Type: Fit<br>";
+        resultElement.innerHTML += " <img src='https://i.pinimg.com/550x/d5/3d/0e/d53d0e976a1977ede8086b609910fe1f.jpg' width='128' height='168'>";
+      } else if (bmi >= 25 && bmi < 30) {
+        resultElement.className = "obese";
+        resultElement.innerHTML += "<br>Body Type: Overweight<br>";
+        resultElement.innerHTML += " <img src='https://img.freepik.com/free-vector/fat-lady-checking-weight_1308-22249.jpg?w=2000' width='128' height='168'>";
+      } else {
+        resultElement.className = "obese";
+        resultElement.innerHTML += " <br>Body Type: Obese<br>";
+        resultElement.innerHTML += " <img src='https://previews.123rf.com/images/idesign2000/idesign20001208/idesign2000120800062/53034591-fat-boy-smiling-and-ready-to-eat-hotdog-and-hamburger.jpg' width='128' height='128'>";
+      }
+    }
+
+    // Call calculateBMI() when input fields change
+    document.getElementById("weightInput").addEventListener("input", calculateBMI);
+    document.getElementById("heightInput").addEventListener("input", calculateBMI);
+
+    // Call calculateBMI() initially to display the result
+    calculateBMI();
+  </script>
+</body>
+</html>
