@@ -37,10 +37,20 @@ The choice of d1d1​ and the values of n1n1​ and n2n2​ depend on the specif
 
 
 
-The Saleh-Valenzuela model, also known as the Saleh-Valenzuela indoor channel model, provides a statistical representation of the channel impulse response (CIR) in indoor environments. It describes the variations in signal strength due to reflections, diffractions, and scattering from multiple paths.
+The model considers both line-of-sight (LOS) and non-line-of-sight (NLOS) scenarios, taking into account the effects of diffraction, reflection, and scattering. The original COST 231 Hata model was developed for the 900 MHz frequency band, but it has been extended to cover a broader frequency range.
 
-The model is based on statistical parameters such as the number of multipath components, the delay spread, and the power delay profile. These parameters are typically derived from measurements in various indoor environments. The Saleh-Valenzuela model assumes a statistical distribution of the multipath components, such as the Saleh-Valenzuela power delay profile.
+The formula for path loss in the COST 231 Hata model is given as:
 
-The Saleh-Valenzuela model is often used in the field of wireless communication for studying and simulating the performance of wireless systems in indoor environments. It provides a statistical representation of the channel behavior, which can be useful for system design, performance evaluation, and the development of communication techniques that account for multipath fading.
+PL=PLurban+Ah+Af−13.82log⁡10(ht)−Cm+(44.9−6.55log⁡10(ht))log⁡10(d)PL=PLurban​+Ah​+Af​−13.82log10​(ht​)−Cm​+(44.9−6.55log10​(ht​))log10​(d)
 
-However, it's important to note that the Saleh-Valenzuela model itself does not provide a direct calculation of path loss. Instead, it focuses on characterizing the statistical properties of the wireless channel. Path loss models, such as the ones discussed earlier, are often used in conjunction with the Saleh-Valenzuela model to estimate the total path loss, considering both deterministic and statistical components of the channel.
+Where:
+
+    PLPL is the path loss in decibels (dB)
+    PLurbanPLurban​ is the path loss in an urban environment at a reference distance and frequency
+    AhAh​ is the correction factor for the height of the receiving antenna
+    AfAf​ is the correction factor for the frequency
+    htht​ is the height of the transmitting antenna in meters
+    CmCm​ is the correction factor for the environment type (urban, suburban, or rural)
+    dd is the distance between the transmitter and receiver in kilometers
+
+The correction factors (AhAh​, AfAf​, CmCm​) are derived from empirical measurements and are based on the specific scenario being modeled. These factors help adjust the path loss estimate based on the characteristics of the antennas, frequency, and environment.
