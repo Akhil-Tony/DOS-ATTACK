@@ -35,3 +35,12 @@ The dual-slope model recognizes that in the near-field region, path loss decreas
 
 The choice of d1d1​ and the values of n1n1​ and n2n2​ depend on the specific wireless environment and the characteristics of the system being modeled. These parameters are typically determined through empirical measurements or by using statistical models based on extensive data collection.
 
+
+
+The Saleh-Valenzuela model, also known as the Saleh-Valenzuela indoor channel model, provides a statistical representation of the channel impulse response (CIR) in indoor environments. It describes the variations in signal strength due to reflections, diffractions, and scattering from multiple paths.
+
+The model is based on statistical parameters such as the number of multipath components, the delay spread, and the power delay profile. These parameters are typically derived from measurements in various indoor environments. The Saleh-Valenzuela model assumes a statistical distribution of the multipath components, such as the Saleh-Valenzuela power delay profile.
+
+The Saleh-Valenzuela model is often used in the field of wireless communication for studying and simulating the performance of wireless systems in indoor environments. It provides a statistical representation of the channel behavior, which can be useful for system design, performance evaluation, and the development of communication techniques that account for multipath fading.
+
+However, it's important to note that the Saleh-Valenzuela model itself does not provide a direct calculation of path loss. Instead, it focuses on characterizing the statistical properties of the wireless channel. Path loss models, such as the ones discussed earlier, are often used in conjunction with the Saleh-Valenzuela model to estimate the total path loss, considering both deterministic and statistical components of the channel.
